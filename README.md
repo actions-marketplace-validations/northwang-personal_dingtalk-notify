@@ -1,3 +1,9 @@
+# How to register a BOT?
+
+[https://open.dingtalk.com/document/group/custom-robot-access](https://open.dingtalk.com/document/group/custom-robot-access)
+
+---
+
 # Usage
 
 ```yml
