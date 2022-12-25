@@ -1,7 +1,10 @@
 FROM openjdk:17
 
-COPY ./entrypoint.sh /entrypoint.sh
-COPY ./target/dingtalk-notify-1.0-jar-with-dependencies.jar /dingtalk-notify-1.0-jar-with-dependencies.jar
+COPY entrypoint.sh /entrypoint.sh
+COPY target/dingtalk-notify-1.0-jar-with-dependencies.jar /dingtalk-notify-1.0-jar-with-dependencies.jar
+
+RUN ls
+RUN pwd
 
 RUN chmod +x /entrypoint.sh
 RUN chmod +x /dingtalk-notify-1.0-jar-with-dependencies.jar
