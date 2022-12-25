@@ -17,8 +17,10 @@ if [ ! -e ./dingtalk-notify.jar ]; then
   exit 1
 fi
 
+ENCODE_PAYLOAD=$(echo "$INPUT_PAYLOAD" | sed 's/{/%7B/g;s/}/%7D/g;s/:/%3A/g;s/\"/%22/g;s/,/%2C/g;s/ /%20/g')
+
 if [ -z "$INPUT_SECRET" ]; then
-  java -jar ./dingtalk-notify.jar -accessToken "$INPUT_ACCESS_TOKEN" -payload "$INPUT_PAYLOAD"
+  java -jar ./dingtalk-notify.jar -accessToken "$INPUT_ACCESS_TOKEN" -payload "$ENCODE_PAYLOAD"
 else
-  java -jar ./dingtalk-notify.jar -accessToken "$INPUT_ACCESS_TOKEN" -payload "$INPUT_PAYLOAD" -secret "$INPUT_SECRET"
+  java -jar ./dingtalk-notify.jar -accessToken "$INPUT_ACCESS_TOKEN" -payload "$ENCODE_PAYLOAD" -secret "$INPUT_SECRET"
 fi

@@ -6,7 +6,7 @@ public class CliOptions {
 
   private String secret;
 
-  private String body;
+  private String payload;
 
   public String getAccessToken() {
     return accessToken;
@@ -24,12 +24,12 @@ public class CliOptions {
     this.secret = secret;
   }
 
-  public String getBody() {
-    return body;
+  public String getPayload() {
+    return payload;
   }
 
-  public void setBody(String body) {
-    this.body = body;
+  public void setPayload(String payload) {
+    this.payload = payload;
   }
 
   @Override
@@ -37,7 +37,7 @@ public class CliOptions {
     return "CliOptions{" +
       "accessToken='" + accessToken + '\'' +
       ", secret='" + secret + '\'' +
-      ", body='" + body + '\'' +
+      ", body='" + payload + '\'' +
       '}';
   }
 }

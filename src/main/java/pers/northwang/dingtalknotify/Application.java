@@ -14,6 +14,7 @@ import pers.northwang.dingtalknotify.func.RequestBuilder;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
@@ -37,7 +38,7 @@ public class Application {
     } else {
       webHook = getWebHook(cliOptions.getAccessToken(), cliOptions.getSecret());
     }
-    sendNotification(webHook).params(cliOptions.getBody());
+    sendNotification(webHook).params(cliOptions.getPayload());
   }
 
   private static boolean isBlank(String str) {
@@ -45,13 +46,13 @@ public class Application {
   }
 
   private static CliOptions getArgs(String[] args) {
-    var accessToken = new Option("accessToken", true, "Dingtalk webhook access token");
+    var accessToken = new Option("accessToken", true, "DingTalk webhook access token");
     accessToken.setRequired(true);
 
-    var secret = new Option("secret", true, "Dingtalk webhook secret for sign");
+    var secret = new Option("secret", true, "DingTalk webhook secret for sign");
     secret.setRequired(false);
 
-    var payload = new Option("payload", true, "Dingtalk webhook request json style body. More usage to see " + DOC_URL);
+    var payload = new Option("payload", true, "DingTalk webhook request json style body.\n More usage: " + DOC_URL);
     payload.setRequired(true);
 
     var options = new Options();
@@ -101,12 +102,14 @@ public class Application {
   private static RequestBuilder<String> sendNotification(String webHook) {
     var httpClient = new OkHttpClient();
     return payload -> {
-      var reqBody = RequestBody.create(payload, MediaType.get("application/json"));
+      var reqBody = RequestBody.create(
+        URLDecoder.decode(payload, StandardCharsets.UTF_8),
+        MediaType.get("application/json")
+      );
       var request = new Request.Builder().url(webHook).post(reqBody).build();
 
       try (var response = httpClient.newCall(request).execute()) {
         var body = response.body();
-        response.close();
         if (!response.isSuccessful() || body == null) {
           throw new Exception(response.message());
         }

@@ -1,21 +1,25 @@
-name: Dingtalk notify
+name: dingtalk-notifiy
 description: Send notification to dingtalk custom bot
 author: northwang
 
+branding:
+  icon: send
+  color: blue
+
 inputs:
   access_token:
-    description: Dingtalk webhook access token
+    description: DingTalk webhook access token
     required: true
   secret:
-    description: Dingtalk webhook secret for sign
+    description: DingTalk webhook secret for sign
     required: false
   payload:
-    description: Dingtalk webhook request json style body. More usage to see https://open.dingtalk.com/document/group/custom-robot-access
+    description: DingTalk webhook request json style body. More usage to see https://open.dingtalk.com/document/group/custom-robot-access
     required: true
 
 outputs:
   response:
-    description: Dingtalk webhook response
+    description: DingTalk webhook response
 
 runs:
   using: docker
